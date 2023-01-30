@@ -43,7 +43,7 @@ namespace Corsi___verifica_recupero
 
             verticale = 6;
             //richiamo alla funzione per controllare il campo
-            int contatore = ControlloCampo(matrice, riga, colonna);
+            int contatore = ControlloCampo(matrice, riga, colonna, tartufi);
             for (int i = 0; i < riga; i++)
             {
                 for (int z = 0; z < colonna; z++)
@@ -58,7 +58,7 @@ namespace Corsi___verifica_recupero
                 orizzontale = 0;
             }
             Console.WriteLine(" ");
-            Console.WriteLine("\n"+contatore);
+            Console.WriteLine("\n"+"Il cane ha fatto "+contatore+" passi");
         }
 
         //funzione per generare il campo
@@ -91,17 +91,17 @@ namespace Corsi___verifica_recupero
             return campo;
         }
 
-        static int ControlloCampo(int[,] campo, int riga, int colonna)
+        static int ControlloCampo(int[,] campo, int riga, int colonna, int tartufi)
         {
             //dichiarazioni
-            int contatore=0;
+            int contatore = 0;
+            int passi = 0;
             for (int i = 0; i < riga; i++)
             {
                 for (int z = 0; z < colonna; z++)
                 {
                     if (campo[i, z] == 100)
                     {
-                        contatore++;
         //controllo prima riga della mappa
                         if (i==0 && z == 0)
                         {
@@ -219,12 +219,22 @@ namespace Corsi___verifica_recupero
                             //alto a sinistra
                             campo[i - 1, z - 1] = campo[i - 1, z - 1] + 1;
                         }
+                        //contatore per far fermare il ciclo quando il cane avrà trovato tutti i tartufi
+                        contatore++;
+                        
 
-
+                        
                     }
+                    //se il contatore è uguale al numero di tartufi allora esci dal ciclo
+                    if (contatore == tartufi)
+                        break;
+                    //contatore dei passi, messo dopo la condizione perchè la prima posizione non si condsidera come passo
+                    passi++;
+
+
                 }
             }
-            return contatore;
+            return passi;
         }
     }
 }
